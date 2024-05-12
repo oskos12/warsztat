@@ -1,0 +1,16 @@
+.bg-image{
+    height: 93%;
+    width: 100%;
+    border-radius: 0;
+    position: absolute;
+}
+.top{
+    height: 100%;
+    position: relative;
+    padding-top: 15%;
+}
+.pt-3{
+    opacity: 0.8;
+    font-size: 5rem;
+    text-shadow: 0.1rem 0.1rem 0.7rem #EB9402;
+}

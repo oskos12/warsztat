@@ -1,0 +1,44 @@
+<div class="container my-5">
+    <h1 class="mb-3">
+        Pracownicy
+    </h1>
+    <table class="table" *ngIf="workers && workers.length > 0">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Imie</th>
+                <th>Nazwisko</th>
+                <th>Numer telefonu</th>
+                <th>Miasto</th>
+                <th>Kod pocztowy</th>
+                <th>Adres</th>
+                <th>Aktywny</th>
+                <th>Email</th>
+                <th>Login</th>
+                <th>Typ konta</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let worker of workers">
+                <td>{{worker.id}}</td>
+                <td>{{worker.name}}</td>
+                <td>{{worker.surname}}</td>
+                <td>{{worker.phoneNumber}}</td>
+                <td>{{worker.city}}</td>
+                <td>{{worker.post}}</td>
+                <td>{{worker.address}}</td>
+                <td><input type="checkbox" value={{worker.active}} [attr.checked]="worker.active === true ? true : null" (click)="active(worker)"></td>
+                <td>{{worker.user.email}}</td>
+                <td>{{worker.user.login}}</td>
+                <td>
+                    <select>
+                    <option *ngFor="let typ of userTypes" [ngValue]="typ.id" [attr.selected]="typ.id === worker.user.dictionaryType_Id ? true : null" (click)="type(worker, typ)">
+                        {{ typ.value }}
+                    </option>
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p *ngIf="!workers || workers.length <= 0">Brak klientów!</p>
+</div>

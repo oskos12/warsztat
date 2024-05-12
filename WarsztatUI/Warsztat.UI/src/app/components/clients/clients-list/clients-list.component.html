@@ -1,0 +1,47 @@
+<div class="container my-5">
+    <h1 class="mb-3">
+        Klienci
+    </h1>
+    <div>
+        <button (click)="addNew()" class="btn btn-primary">Dodaj</button>
+    </div>
+    <table class="table" *ngIf="clients && clients.length > 0">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Imie</th>
+                <th>Nazwisko</th>
+                <th>Numer telefonu</th>
+                <th>Email</th>
+                <th>Miasto</th>
+                <th>Kod pocztowy</th>
+                <th>Adres</th>
+                <th *ngIf="role === 'Admin'">Aktywny</th>
+                <th *ngIf="role === 'Admin'">Login</th>
+                <th *ngIf="role === 'Admin'">Typ konta</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let client of clients">
+                <td>{{client.id}}</td>
+                <td>{{client.name}}</td>
+                <td>{{client.surname}}</td>
+                <td>{{client.phoneNumber}}</td>
+                <td>{{client.user.email}}</td>
+                <td>{{client.city}}</td>
+                <td>{{client.post}}</td>
+                <td>{{client.address}}</td>
+                <td *ngIf="role === 'Admin'"><input type="checkbox" value={{client.active}} [attr.checked]="client.active === true ? true : null" (click)="active(client)"></td>
+                <td *ngIf="role === 'Admin'">{{client.user.login}}</td>
+                <td *ngIf="role === 'Admin'">
+                    <select>
+                    <option *ngFor="let typ of userTypes" [ngValue]="typ.id" [attr.selected]="typ.id === client.user.dictionaryType_Id ? true : null" (click)="type(client, typ)">
+                        {{ typ.value }}
+                    </option>
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p *ngIf="!clients || clients.length <= 0">Brak klientów!</p>
+</div>

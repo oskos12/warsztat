@@ -1,0 +1,82 @@
+<div class="outer">
+    <div class="container">
+        <div class="row">
+            <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+                <div class="panel border bg-white">
+                    <div class="panel-heading">
+                        <h3 class="pt-3 font-weight-bold">Dodaj nowy serwis</h3>
+                    </div>
+                    <div class="panel-body p-3">
+                        <form [formGroup]="addServiceForm">
+                            <div class="form-group pt-3">
+                                <div class="input-field" [class.error]="addServiceForm.controls['serviceType'].dirty && addServiceForm.hasError('required','serviceType')">
+                                    <span class="fa fa-wrench p-2"></span>
+                                    <select class="form-select" formControlName="serviceType" multiple>
+                                        <option value="" disabled>Rodzaj usługi</option>
+                                        <option *ngFor="let serviceType of serviceTypes" [ngValue]="serviceType">
+                                            {{ serviceType.value + " - " + serviceType.description }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <small *ngIf="addServiceForm.controls['serviceType'].dirty && addServiceForm.hasError('required','serviceType')" class="text-danger">*Rodzaj usługi jest wymagany!</small>
+
+                            <div class="form-group pt-3">
+                                <div class="input-field">
+                                    <span class="fa fa-plus-square p-2"></span>
+                                    <input formControlName="count" type="text" placeholder="Ilość">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group pt-3">
+                                <div class="input-field">
+                                    <span class="fa fa-clock-o p-2"></span>
+                                    <input formControlName="hours" type="text" placeholder="Ilość godzin">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group pt-3">
+                                <div class="input-field">
+                                    <span class="fa fa-usd p-2"></span>
+                                    <input formControlName="costSum" type="number" placeholder="Łączny koszt [zł]">
+                                </div>
+                            </div>
+
+                            <div class="form-group pt-3">
+                                <div class="input-field">
+                                    <textarea class="form-control" id="description" formControlName="description" rows="3" cols="10" placeholder="Opis"></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group pt-3">
+                                <div class="input-field" [class.error]="addServiceForm.controls['registration'].dirty && addServiceForm.hasError('required','registration')">
+                                    <span class="fa fa-id-card p-2"></span>
+                                    <input formControlName="registration" type="text" placeholder="Rejestracja">
+                                </div>
+                            </div>
+                            <small *ngIf="addServiceForm.controls['registration'].dirty && addServiceForm.hasError('required','registration')" class="text-danger">*Rejestracja jest wymagana!</small>
+
+                            <div class="form-group pt-3">
+                                <div class="input-field" [class.error]="addServiceForm.controls['supervisor'].dirty && addServiceForm.hasError('required','supervisor')">
+                                    <span class="fa fa-user p-2"></span>
+                                    <select formControlName="supervisor">
+                                        <option value="" disabled>Nadzorca</option>
+                                        <option *ngFor="let supervisor of workers" [ngValue]="supervisor">
+                                            {{ supervisor.name + ' ' + supervisor.surname }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <small *ngIf="addServiceForm.controls['supervisor'].dirty && addServiceForm.hasError('required','supervisor')" class="text-danger">*Nadzorca jest wymagany!</small>
+
+                            <button (click)="addService()" type="submit" class="btn btn-primary btn-block mt-4 w-100">Dodaj serwis</button>
+                            <div class="text-center pt-4 text-muted">
+                                <a class="link" id="forget" routerLink="/services">Anuluj</a>
+                            </div> 
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

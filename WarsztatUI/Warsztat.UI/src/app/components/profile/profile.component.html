@@ -1,0 +1,92 @@
+<div *ngIf="edit === true" class="outer">
+    <div class="container">
+        <div class="row">
+            <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+                <div class="panel border bg-white">
+                    <div class="panel-heading">
+                        <h3 class="pt-3 font-weight-bold">Witaj {{fullName}}!</h3>
+                        <p>Uzupełnij swoje dane kontaktowe</p>
+                    </div>
+                    <div class="panel-body p-3">
+                        <form [formGroup]="clientForm">
+                            <div class="form-group pt-3">
+                                <div class="input-field" [class.error]="clientForm.controls['city'].dirty && clientForm.hasError('required','city')">
+                                    <span class="fa fa-user p-2"></span>
+                                    <input formControlName="city" type="text" placeholder="Miasto" value={{client[4]}}>
+                                </div>
+                            </div>
+                            <small *ngIf="clientForm.controls['city'].dirty && clientForm.hasError('required','city')" class="text-danger">*Miasto jest wymagane!</small>
+
+                            <div class="form-group pt-3">
+                                <div class="input-field" [class.error]="clientForm.controls['post'].dirty && clientForm.hasError('required','post')">
+                                    <span class="fa fa-envelope p-2"></span>
+                                    <input formControlName="post" type="text" placeholder="Kod pocztowy" value={{client[5]}}>
+                                </div>
+                            </div>
+                            <small *ngIf="clientForm.controls['post'].dirty && clientForm.hasError('required','post')" class="text-danger">*Kod pocztowy jest wymagany!</small>
+
+                            <div class="form-group pt-3">
+                                <div class="input-field" [class.error]="clientForm.controls['address'].dirty && clientForm.hasError('required','address')">
+                                    <span class="fa fa-user p-2"></span>
+                                    <input formControlName="address" type="text" placeholder="Adres" value={{client[6]}}>
+                                </div>
+                            </div>
+                            <small *ngIf="clientForm.controls['address'].dirty && clientForm.hasError('required','address')" class="text-danger">*Adres jest wymagany!</small>
+
+                            <div class="form-group pt-3">
+                                <div class="input-field" [class.error]="clientForm.controls['phoneNumber'].dirty && clientForm.hasError('required','phoneNumber')">
+                                    <span class="fa fa-phone p-2"></span>
+                                    <input formControlName="phoneNumber" type="text" placeholder="Numer telefonu" value={{client[3]}}>
+                                </div>
+                            </div>
+                            <small *ngIf="clientForm.controls['phoneNumber'].dirty && clientForm.hasError('required','phoneNumber')" class="text-danger">*Numer telefonu jest wymagany!</small>
+
+                            <button (click)="onSubmit()" type="submit" class="btn btn-primary btn-block mt-4 w-100">Zapisz zmiany</button>
+                            <div class="text-center pt-4 text-muted">
+                                <a class="link" id="forget" (click)="back()">Anuluj</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="edit === false" class="outer">
+    <div class="container">
+        <div class="row">
+            <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+                <div class="panel border bg-white">
+                    <div class="panel-heading">
+                        <h3 class="pt-3 font-weight-bold">Witaj {{fullName}}!</h3>
+                        <p>Twoje dane kontaktowe:</p>
+                    </div>
+                    <div class="panel-body p-3">
+                        <div class="form-group pt-3">
+                            <div class="input-field">
+                                <span class="fa fa-user p-2"></span><span style="color:black;">{{client[4]}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group pt-3">
+                            <div class="input-field">
+                                <span class="fa fa-envelope p-2"></span><span style="color:black;">{{client[5]}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group pt-3">
+                            <div class="input-field">
+                                <span class="fa fa-user p-2"></span><span style="color:black;">{{client[6]}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group pt-3">
+                            <div class="input-field">
+                                <span class="fa fa-phone p-2"></span><span style="color:black;">{{client[3]}}</span>
+                            </div>
+                        </div>
+                        <button (click)="editData()" type="submit" class="btn btn-primary btn-block mt-4 w-100">Edytuj dane</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

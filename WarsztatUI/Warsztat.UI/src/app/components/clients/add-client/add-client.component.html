@@ -1,0 +1,74 @@
+<div class="outer">
+    <div class="container">
+        <div class="row">
+            <div class="offset-md-2 col-lg-5 col-md-5 offset-lg-4 offset-md-3">
+                <div class="panel border bg-white">
+                    <div class="panel-heading">
+                        <h3 class="pt-3 font-weight-bold">Dodaj nowego klienta</h3>
+                    </div>
+                    <div class="panel-body p-3">
+                        <form [formGroup]="addClientForm">
+                            <div class="form-group pt-3">
+                                <div class="input-field" [class.error]="addClientForm.controls['name'].dirty && addClientForm.hasError('required','name')">
+                                    <span class="fa fa-user p-2"></span>
+                                    <input formControlName="name" type="text" placeholder="Imie">
+                                </div>
+                            </div>
+                            <small *ngIf="addClientForm.controls['name'].dirty && addClientForm.hasError('required','name')" class="text-danger">*Imie jest wymagane!</small>
+
+                            <div class="form-group pt-3">
+                                <div class="input-field" [class.error]="addClientForm.controls['surname'].dirty && addClientForm.hasError('required','surname')">
+                                    <span class="fa fa-user p-2"></span>
+                                    <input formControlName="surname" type="text" placeholder="Nazwisko">
+                                </div>
+                            </div>
+                            <small *ngIf="addClientForm.controls['surname'].dirty && addClientForm.hasError('required','surname')" class="text-danger">*Nazwisko jest wymagane!</small>
+
+                            <div class="form-group pt-3">
+                                <div class="input-field" [class.error]="addClientForm.controls['phoneNumber'].dirty && addClientForm.hasError('required','phoneNumber')">
+                                    <span class="fa fa-phone p-2"></span>
+                                    <input formControlName="phoneNumber" type="text" placeholder="Numer telefonu">
+                                </div>
+                            </div>
+                            <small *ngIf="addClientForm.controls['phoneNumber'].dirty && addClientForm.hasError('required','phoneNumber')" class="text-danger">*Numer telefonu jest wymagany!</small>
+                            
+                            <div class="form-group pt-3">
+                                <div class="input-field">
+                                    <span class="fa fa-home p-2"></span>
+                                    <input formControlName="city" type="text" placeholder="Miasto">
+                                </div>
+                            </div>
+
+                            <div class="form-group pt-3">
+                                <div class="input-field">
+                                    <span class="fa fa-home p-2"></span>
+                                    <input formControlName="post" type="text" placeholder="Kod pocztowy">
+                                </div>
+                            </div>
+
+                            <div class="form-group pt-3">
+                                <div class="input-field">
+                                    <span class="fa fa-home p-2"></span>
+                                    <input formControlName="address" type="text" placeholder="Adres">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group pt-3">
+                                <div class="input-field" [class.error]="addClientForm.controls['email'].dirty && addClientForm.hasError('required','email')">
+                                    <span class="fa fa-envelope p-2"></span>
+                                    <input formControlName="email" type="text" placeholder="Email">
+                                </div>
+                            </div>
+                            <small *ngIf="addClientForm.controls['email'].dirty && addClientForm.hasError('required','email')" class="text-danger">*Email jest wymagany!</small>
+                            
+                            <button (click)="addClient()" type="submit" class="btn btn-primary btn-block mt-4 w-100">Dodaj klienta</button>
+                            <div class="text-center pt-4 text-muted">
+                                <a class="link" id="forget" routerLink="/clients">Anuluj</a>
+                            </div> 
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

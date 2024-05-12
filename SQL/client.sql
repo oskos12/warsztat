@@ -1,0 +1,1 @@
+insert into dbo.ClientsSet(Name, Surname, PhoneNumber) values ('Test', 'test', '555555555')

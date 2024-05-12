@@ -1,0 +1,135 @@
+<div class="container my-5" *ngIf="history === false && user ===  false">
+    <h1 class="mb-3">
+        Samochody
+    </h1>
+    <div *ngIf="role === 'Admin' || role ==='Personel'">
+        <button (click)="addNew()" class="btn btn-primary">Dodaj</button>
+    </div>
+    <table class="table" *ngIf="cars && cars.length > 0">
+        <thead>
+            <tr>
+                <th *ngIf="role === 'Admin' || role ==='Personel'">Id</th>
+                <th>Marka</th>
+                <th>Model</th>
+                <th>Rejestracja</th>
+                <th>Rok produkcji</th>
+                <th>Pojemność silnika</th>
+                <th *ngIf="role === 'Admin' || role ==='Personel'">Właściciel</th>
+                <th>Rodzaj</th>
+                <th>Silnik</th>
+                <th *ngIf="role === 'Admin'">Aktywny</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let car of cars">
+                <td *ngIf="role === 'Admin' || role ==='Personel'">{{car.id}}</td>
+                <td>{{car.brand}}</td>
+                <td>{{car.model}}</td>
+                <td>{{car.registration}}</td>
+                <td>{{car.productionYear.substring(0,10)}}</td>
+                <td>{{car.capacity}}</td>
+                <td *ngIf="role === 'Admin' || role ==='Personel'"><a class="link" id="forget" (click)="getClient(car.owner, car.owner.name + ' ' + car.owner.surname)">{{car.owner.name + ' ' + car.owner.surname}}</a></td>
+                <td>{{car.dictionaryType_Id}}</td>
+                <td>{{car.dictionaryEngine_Id}}</td>
+                <td *ngIf="role === 'User'">{{car.dictionaryStatus_Id}}</td>
+                <td *ngIf="role === 'Admin'"><input type="checkbox" value={{car.active}} [attr.checked]="car.active === true ? true : null" (click)="active(car)"></td>
+                <td *ngIf="role === 'Admin' || role ==='Personel'">
+                    <select>
+                    <option *ngFor="let status of vehicleStatuses" [ngValue]="status.id" [attr.selected]="status.value === car.dictionaryStatus_Id ? true : null" (click)="type(car, status)">
+                        {{ status.value }}
+                    </option>
+                    </select>
+                </td>
+                <td><button (click)="viewHistory(car)" class="btn btn-danger logout">Serwisy</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <p *ngIf="!cars || cars.length <= 0">Brak samochodów!</p>
+</div>
+
+<div class="container my-5" *ngIf="history === true && user ===  false">
+    <h1 class="mb-3">
+        Historia serwisów
+    </h1>
+    <div>
+        <button (click)="powrot()" class="btn btn-primary">Wróć</button>
+    </div>
+    <table class="table" *ngIf="services && services.length > 0">
+        <thead>
+            <tr>
+                <th *ngIf="role === 'Admin' || role ==='Personel'">Id</th>
+                <th>Pojazd</th>
+                <th>Data rozpoczęcia</th>
+                <th>Data zakończenia</th>
+                <th>Ilość</th>
+                <th>Godziny</th>
+                <th>Łączna cena</th>
+                <th>Rodzaj usługi</th>
+                <th>Opis</th>
+                <th *ngIf="role === 'Admin' || role ==='Personel'">Opiekun</th>
+                <th *ngIf="role === 'Admin' || role ==='Personel'">Lista pracowników</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let service of services">
+                <td *ngIf="role === 'Admin' || role ==='Personel'">{{service.service.id}}</td>
+                <td>{{service.service.registration}}</td>
+                <td>{{service.service.dateAdd.substring(0,10)}}</td>
+                <td><span *ngIf="service.service.dateFinish != null">{{service.service.dateFinish.substring(0,16).replace('T',' ')}}</span></td>
+                <td>{{service.service.count}}</td>
+                <td>{{service.service.hours}}</td>
+                <td>{{service.service.costSum}}</td>
+                <td style="text-align: left;">{{service.service.dictValue + ' - ' + service.service.dictDescription}}</td>
+                <td>{{service.service.description}}</td>
+                <td *ngIf="role === 'Admin' || role ==='Personel'">{{service.service.name + ' ' + service.service.surname}}</td>
+                <td *ngIf="role === 'Admin' || role ==='Personel'">
+                    <select size="3" *ngIf="service.workers.length > 0">
+                        <option *ngFor="let worker of service.workers" [ngValue]="worker.id">
+                            {{ worker.name + ' ' + worker.surname }}
+                        </option>
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p *ngIf="!services || services.length <= 0">Brak historii serwisów!</p>
+</div>
+
+<div *ngIf="user === true" class="outer">
+    <div class="container">
+        <div class="row">
+            <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+                <div class="panel border bg-white">
+                    <div class="panel-body p-3">
+                        <h3 class="pt-3 font-weight-bold" style="text-align:center">{{cname}}</h3>
+                        <div class="form-group pt-3">
+                            <div class="input-field">
+                                <span class="fa fa-user p-2"></span><span style="color:black;">{{client[4]}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group pt-3">
+                            <div class="input-field">
+                                <span class="fa fa-envelope p-2"></span><span style="color:black;">{{client[5]}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group pt-3">
+                            <div class="input-field">
+                                <span class="fa fa-user p-2"></span><span style="color:black;">{{client[6]}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group pt-3">
+                            <div class="input-field">
+                                <span class="fa fa-phone p-2"></span><span style="color:black;">{{client[3]}}</span>
+                            </div>
+                        </div>
+                        <div class="text-center pt-4 text-muted">
+                            <a class="link" id="forget" (click)="back()">Wróć</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

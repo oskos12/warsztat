@@ -1,0 +1,99 @@
+<div class="outer">
+    <div class="container">
+        <div class="row">
+            <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+                <div class="panel border bg-white">
+                    <div class="panel-heading">
+                        <h3 class="pt-3 font-weight-bold">Dodaj nowy samochód</h3>
+                    </div>
+                    <div class="panel-body p-3">
+                        <form [formGroup]="addCarForm">
+                            <div class="form-group pt-3">
+                                <div class="input-field" [class.error]="addCarForm.controls['brand'].dirty && addCarForm.hasError('required','brand')">
+                                    <span class="fa fa-car p-2"></span>
+                                    <input formControlName="brand" type="text" placeholder="Marka">
+                                </div>
+                            </div>
+                            <small *ngIf="addCarForm.controls['brand'].dirty && addCarForm.hasError('required','brand')" class="text-danger">*Marka jest wymagana!</small>
+
+                            <div class="form-group pt-3">
+                                <div class="input-field" [class.error]="addCarForm.controls['model'].dirty && addCarForm.hasError('required','model')">
+                                    <span class="fa fa-car p-2"></span>
+                                    <input formControlName="model" type="text" placeholder="Model">
+                                </div>
+                            </div>
+                            <small *ngIf="addCarForm.controls['model'].dirty && addCarForm.hasError('required','model')" class="text-danger">*Model jest wymagany!</small>
+
+                            <div class="form-group pt-3">
+                                <div class="input-field" [class.error]="addCarForm.controls['registration'].dirty && addCarForm.hasError('required','registration')">
+                                    <span class="fa fa-id-card p-2"></span>
+                                    <input formControlName="registration" type="text" placeholder="Rejestracja">
+                                </div>
+                            </div>
+                            <small *ngIf="addCarForm.controls['registration'].dirty && addCarForm.hasError('required','registration')" class="text-danger">*Rejestracja jest wymagana!</small>
+
+                            <div class="form-group pt-3">
+                                <div class="input-field">
+                                    <span class="fa fa-calendar p-2"></span>
+                                    <input formControlName="productionYear" type="text" placeholder="Rok produkcji (YYYY/MM/DD)">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group pt-3">
+                                <div class="input-field">
+                                    <span class="fa fa-car p-2"></span>
+                                    <input formControlName="capacity" type="number" placeholder="Pojemność silnika">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group pt-3">
+                                <div class="input-field" [class.error]="addCarForm.controls['owner'].dirty && addCarForm.hasError('required','owner')">
+                                    <span class="fa fa-user p-2"></span>
+                                    <select formControlName="owner">
+                                        <option value="" disabled>Właściciel</option>
+                                        <option *ngFor="let owner of clients" [ngValue]="owner">
+                                            {{ owner.name + ' ' + owner.surname }}
+                                        </option>
+                                    </select>
+                                    <!--<input formControlName="owner" type="text" placeholder="Właściciel">-->
+                                </div>
+                            </div>
+                            <small *ngIf="addCarForm.controls['owner'].dirty && addCarForm.hasError('required','owner')" class="text-danger">*Właściciel jest wymagany!</small>
+
+                            <div class="form-group pt-3">
+                                <div class="input-field" [class.error]="addCarForm.controls['vehicleType'].dirty && addCarForm.hasError('required','vehicleType')">
+                                    <span class="fa fa-motorcycle p-2"></span>
+                                    <select formControlName="vehicleType">
+                                        <option value="" disabled>Typ pojazdu</option>
+                                        <option *ngFor="let vehicle of vehicleTypes" [ngValue]="vehicle">
+                                            {{ vehicle.value }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <small *ngIf="addCarForm.controls['vehicleType'].dirty && addCarForm.hasError('required','vehicleType')" class="text-danger">*Typ pojazdu jest wymagany!</small>
+
+                            <div class="form-group pt-3">
+                                <div class="input-field" [class.error]="addCarForm.controls['engineType'].dirty && addCarForm.hasError('required','engineType')">
+                                    <span class="fa fa-car p-2"></span>
+                                    <select formControlName="engineType">
+                                        <option value="" disabled>Typ silnika</option>
+                                        <option *ngFor="let engine of engineTypes" [ngValue]="engine">
+                                            {{ engine.value }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <small *ngIf="addCarForm.controls['engineType'].dirty && addCarForm.hasError('required','engineType')" class="text-danger">*Typ silnika jest wymagany!</small>
+
+                            <button (click)="addCar()" type="submit" class="btn btn-primary btn-block mt-4 w-100">Dodaj samochód</button>
+                            <div class="text-center pt-4 text-muted">
+                                <a class="link" id="forget" routerLink="/cars">Anuluj</a>
+                            </div> 
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

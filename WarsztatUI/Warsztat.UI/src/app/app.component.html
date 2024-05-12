@@ -1,0 +1,58 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <img src="/assets/car-repair.png" width="10" height="10" class="d-inline-block icon" alt="">
+      Warsztat
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav" style="width:100%;">
+        <li class="nav-item" *ngIf="role === 'Admin' || role === 'Personel'">
+          <a class="nav-link" routerLink="cars">Samochody</a>
+        </li>
+        <li class="nav-item" *ngIf="role === 'User'">
+          <a class="nav-link" routerLink="cars">Moje samochody</a>
+        </li>
+        <li class="nav-item" *ngIf="role === 'Admin' || role === 'Personel'">
+          <a class="nav-link" routerLink="clients">Klienci</a>
+        </li>
+        <li class="nav-item" *ngIf="role === 'Admin'">
+          <a class="nav-link" routerLink="workers">Pracownicy</a>
+        </li>
+        <li class="nav-item" *ngIf="role === 'Admin' || role === 'Personel'">
+          <a class="nav-link" routerLink="services">Serwisy</a>
+        </li>
+        <li class="nav-item" *ngIf="role === 'User'">
+          <a class="nav-link" routerLink="services">Moje naprawy</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="kontakt">Kontakt</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="oferta">Oferta</a>
+        </li>
+        <li class="nav-item" *ngIf="role === '' || role === 'User'">
+          <a class="nav-link" href="zapytanie">Zapytanie</a>
+        </li>
+        <li class="nav-item" *ngIf="role != '' && role != 'User'">
+          <a class="nav-link" href="zapytania">Zapytania</a>
+        </li>
+        <li class="nav-item ms-auto">
+          <div class="d-flex" *ngIf="role === ''">
+            <a class="nav-link login" href="login">Zaloguj</a> 
+            <a class="nav-link" href="signup">Utwórz konto</a>
+          </div>
+          <div class="d-flex" style = "height:100%;" *ngIf="role !== ''">
+            <button (click)="userData()" class="btn btn-danger logout userButton"> {{fullName}}</button>
+            <button (click)="logout()" class="btn btn-danger logout">Wyloguj</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+</nav>
+<router-outlet></router-outlet>
+<lib-ng-toast></lib-ng-toast>

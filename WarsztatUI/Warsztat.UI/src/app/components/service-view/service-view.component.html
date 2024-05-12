@@ -1,0 +1,37 @@
+<div class="container my-5">
+    <h1 class="mb-3">
+        Zapytania ofertowe
+    </h1>
+    <table class="table" *ngIf="applications && applications.length > 0">
+        <thead>
+            <tr>
+                <th *ngIf="role === 'Admin'">Id</th>
+                <th>Treść</th>
+                <th>Kontakt</th>
+                <th>Klient</th>
+                <th>Status</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let application of applications">
+                <td *ngIf="role === 'Admin'">{{application.id}}</td>
+                <td>{{application.content}}</td>
+                <td *ngIf="application.contact.search(' ') !== -1">
+                    {{application.contact.slice(0,application.contact.indexOf(' '))+' /  '}} 
+                    <a class="link" [href]="'mailto:' + application.contact.slice(application.contact.indexOf(' ')+1, application.contact.length)">{{application.contact.slice(application.contact.indexOf(' ')+1, application.contact.length)}}</a>
+                </td>
+                <td *ngIf="application.contact.search(' ') === -1 ">
+                    <a class="link" [href]="'mailto:' + application.contact">{{application.contact}}</a>
+                </td>
+                <td *ngIf="application.clients_Id === null"></td>
+                <td *ngIf="application.clients_Id !== null">{{application.name + ' ' + application.surname}}</td>
+                <td>{{application.value}}</td>
+                <td><button (click)="changeStatus(application, 'Rozpatrzony')" class="btn btn-primary tbutton">Zatwierdź</button></td>
+                <td><button (click)="changeStatus(application, 'Odrzucony')" class="btn btn-primary tbutton">Odrzuć</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <p *ngIf="!applications || applications.length <= 0">Brak zapytań!</p>
+</div>

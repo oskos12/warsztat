@@ -1,0 +1,39 @@
+<div class="outer">
+    <div class="container">
+        <div class="row">
+            <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+                <div class="panel border bg-white">
+                    <div class="panel-heading">
+                        <h3 class="pt-3 font-weight-bold">Logowanie</h3>
+                    </div>
+                    <div class="panel-body p-3">
+                        <form [formGroup]="loginForm">
+                            <div class="form-group pt-3">
+                                <div class="input-field" [class.error]="loginForm.controls['login'].dirty && loginForm.hasError('required','login')">
+                                    <span class="fa fa-user p-2"></span>
+                                    <input formControlName="login" type="text" placeholder="Login">
+                                </div>
+                            </div>
+                            <small *ngIf="loginForm.controls['login'].dirty && loginForm.hasError('required','login')" class="text-danger">*Login jest wymagany!</small>
+
+                            <div class="form-group pt-3">
+                                <div class="input-field" [class.error]="loginForm.controls['password'].dirty && loginForm.hasError('required','password')">
+                                    <span class="fa fa-lock p-2"></span>
+                                    <input formControlName="password" [type]="type" placeholder="Hasło">
+                                    <span (click)="hideShowPassword()" class="fa {{eyeIcon}}"></span>
+                                </div>
+                            </div>
+                            <small *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required','password')" class="text-danger">*Hasło jest wymagany!</small>
+                            
+                            <button (click)="onSubmit()" type="submit" class="btn btn-primary btn-block mt-4 w-100">Zaloguj</button>
+                            <div class="text-center pt-4 text-muted">
+                                Nie masz jeszcze konta?
+                                <a class="link" id="forget" routerLink="/signup">Utwórz konto.</a>
+                            </div> 
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

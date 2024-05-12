@@ -1,0 +1,42 @@
+<div class="outer">
+    <div class="container">
+        <div class="row">
+            <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+                <div class="panel-heading">
+                    <h3 class="pt-3 font-weight-bold">Zapytanie ofertowe</h3>
+                    <div style="text-align:left">
+                        Chciałbyś skorzytać z naszego warsztatu i zapytać o wykonanie usługi?
+                        <br>Wyślij zapytanie<span *ngIf="role === ''"> i zostaw do siebie kontakt</span>, a my odezwiemy się z wyceną serwisu.
+                    </div>
+                </div>
+                <div class="panel-body p-3">
+                    <form [formGroup]="queryForm">
+                        <div class="form-group pt-3" *ngIf="role === ''">
+                            <div class="input-field" [class.error]="queryForm.controls['phoneNumber'].dirty && queryForm.hasError('required','phoneNumber')">
+                                <span class="fa fa-phone p-2"></span>
+                                <input formControlName="phoneNumber" type="text" placeholder="Numer telefonu">
+                            </div>
+                        </div>
+                        <div class="form-group pt-3" *ngIf="role === ''">
+                            <div class="input-field" [class.error]="queryForm.controls['email'].dirty && queryForm.hasError('required','email')">
+                                <span class="fa fa-envelope p-2"></span>
+                                <input formControlName="email" type="text" placeholder="Email">
+                            </div>
+                        </div>
+                        <p *ngIf="role === ''">
+                            <small *ngIf="(queryForm.controls['phoneNumber'].dirty && queryForm.hasError('required','phoneNumber')) || (queryForm.controls['email'].dirty && queryForm.hasError('required','email'))" class="text-danger">*Numer telefonu i adres email jest wymagany!</small>
+                        </p>
+                        
+                        <div class="form-group pt-3">
+                            <div [class.error]="queryForm.controls['query'].dirty && queryForm.hasError('required','query')">
+                                <textarea class="form-control" id="query" formControlName="query" rows="3" cols="10" placeholder="Treść zapytania"></textarea>
+                            </div>
+                        </div>
+                        <small *ngIf="queryForm.controls['query'].dirty && queryForm.hasError('required','query')" class="text-danger">*Treść zapytania nie może być pusta!</small>
+                        <button (click)="onSubmit()" type="submit" class="btn btn-primary btn-block mt-4 w-100">Wyślij</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

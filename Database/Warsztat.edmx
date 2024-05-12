@@ -1,0 +1,808 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Warsztat.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="WarsztatStoreContainer">
+    <EntitySet Name="UsersSet" EntityType="Warsztat.Store.UsersSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CarsSet" EntityType="Warsztat.Store.CarsSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ServicesSet" EntityType="Warsztat.Store.ServicesSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WorkersSet" EntityType="Warsztat.Store.WorkersSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ClientsSet" EntityType="Warsztat.Store.ClientsSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DictionarySet" EntityType="Warsztat.Store.DictionarySet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ApplicationsSet" EntityType="Warsztat.Store.ApplicationsSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WorkersServicesSet" EntityType="Warsztat.Store.WorkersServicesSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="CarsServices" Association="Warsztat.Store.CarsServices">
+      <End Role="Cars" EntitySet="CarsSet" />
+      <End Role="Services" EntitySet="ServicesSet" />
+    </AssociationSet>
+    <AssociationSet Name="UsersClients" Association="Warsztat.Store.UsersClients">
+      <End Role="Users" EntitySet="UsersSet" />
+      <End Role="Clients" EntitySet="ClientsSet" />
+    </AssociationSet>
+    <AssociationSet Name="UsersWorkers" Association="Warsztat.Store.UsersWorkers">
+      <End Role="Users" EntitySet="UsersSet" />
+      <End Role="Workers" EntitySet="WorkersSet" />
+    </AssociationSet>
+    <AssociationSet Name="ClientsCars" Association="Warsztat.Store.ClientsCars">
+      <End Role="Clients" EntitySet="ClientsSet" />
+      <End Role="Cars" EntitySet="CarsSet" />
+    </AssociationSet>
+    <AssociationSet Name="DictionaryUsers" Association="Warsztat.Store.DictionaryUsers">
+      <End Role="Dictionary" EntitySet="DictionarySet" />
+      <End Role="Users" EntitySet="UsersSet" />
+    </AssociationSet>
+    <AssociationSet Name="DictionaryCarsEngine" Association="Warsztat.Store.DictionaryCarsEngine">
+      <End Role="Dictionary" EntitySet="DictionarySet" />
+      <End Role="Cars" EntitySet="CarsSet" />
+    </AssociationSet>
+    <AssociationSet Name="DictionaryServices" Association="Warsztat.Store.DictionaryServices">
+      <End Role="Dictionary" EntitySet="DictionarySet" />
+      <End Role="Services" EntitySet="ServicesSet" />
+    </AssociationSet>
+    <AssociationSet Name="DictionaryCarsType" Association="Warsztat.Store.DictionaryCarsType">
+      <End Role="Dictionary" EntitySet="DictionarySet" />
+      <End Role="Cars" EntitySet="CarsSet" />
+    </AssociationSet>
+    <AssociationSet Name="DictionaryCarsStatus" Association="Warsztat.Store.DictionaryCarsStatus">
+      <End Role="Dictionary" EntitySet="DictionarySet" />
+      <End Role="Cars" EntitySet="CarsSet" />
+    </AssociationSet>
+    <AssociationSet Name="ClientsApplications" Association="Warsztat.Store.ClientsApplications">
+      <End Role="Clients" EntitySet="ClientsSet" />
+      <End Role="Applications" EntitySet="ApplicationsSet" />
+    </AssociationSet>
+    <AssociationSet Name="ServicesWorkers" Association="Warsztat.Store.ServicesWorkers">
+      <End Role="Services" EntitySet="ServicesSet" />
+      <End Role="Workers" EntitySet="WorkersSet" />
+    </AssociationSet>
+    <AssociationSet Name="WorkersServicesWorkers" Association="Warsztat.Store.WorkersServicesWorkers">
+      <End Role="WorkersServices" EntitySet="WorkersServicesSet" />
+      <End Role="Workers" EntitySet="WorkersSet" />
+    </AssociationSet>
+    <AssociationSet Name="ServicesWorkersServices" Association="Warsztat.Store.ServicesWorkersServices">
+      <End Role="Services" EntitySet="ServicesSet" />
+      <End Role="WorkersServices" EntitySet="WorkersServicesSet" />
+    </AssociationSet>
+    <AssociationSet Name="DictionaryApplications" Association="Warsztat.Store.DictionaryApplications">
+      <End Role="Dictionary" EntitySet="DictionarySet" />
+      <End Role="Applications" EntitySet="ApplicationsSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="UsersSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DictionaryType_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CarsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Brand" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Model" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Registration" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ProductionYear" Type="datetime" Nullable="true" />
+    <Property Name="Capacity" Type="float" Nullable="true" />
+    <Property Name="Active" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="Clients_Id" Type="int" Nullable="false" />
+    <Property Name="DictionaryEngine_Id" Type="int" Nullable="false" />
+    <Property Name="DictionaryType_Id" Type="int" Nullable="false" />
+    <Property Name="DictionaryStatus_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ServicesSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Count" Type="int" Nullable="true" />
+    <Property Name="Hours" Type="int" Nullable="true" />
+    <Property Name="DateAdd" Type="datetime" Nullable="false" />
+    <Property Name="DateFinish" Type="datetime" Nullable="true" />
+    <Property Name="CostSum" Type="decimal" Nullable="true" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Cars_Id" Type="int" Nullable="false" />
+    <Property Name="Dictionary_Id" Type="int" Nullable="false" />
+    <Property Name="Workers_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WorkersSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Surname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="City" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Post" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Address" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Active" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="Users_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ClientsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Surname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="City" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Post" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Address" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Active" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="Users_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DictionarySet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Key" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="ApplicationsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Contact" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Clients_Id" Type="int" Nullable="true" />
+    <Property Name="DictionaryStatus_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WorkersServicesSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Workers_Id" Type="int" Nullable="false" />
+    <Property Name="Services_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="CarsServices">
+    <End Role="Cars" Type="Warsztat.Store.CarsSet" Multiplicity="1" />
+    <End Role="Services" Type="Warsztat.Store.ServicesSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Services">
+        <PropertyRef Name="Cars_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UsersClients">
+    <End Role="Users" Type="Warsztat.Store.UsersSet" Multiplicity="1" />
+    <End Role="Clients" Type="Warsztat.Store.ClientsSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Clients">
+        <PropertyRef Name="Users_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UsersWorkers">
+    <End Role="Users" Type="Warsztat.Store.UsersSet" Multiplicity="1" />
+    <End Role="Workers" Type="Warsztat.Store.WorkersSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Workers">
+        <PropertyRef Name="Users_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ClientsCars">
+    <End Role="Clients" Type="Warsztat.Store.ClientsSet" Multiplicity="1" />
+    <End Role="Cars" Type="Warsztat.Store.CarsSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cars">
+        <PropertyRef Name="Clients_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DictionaryUsers">
+    <End Role="Dictionary" Type="Warsztat.Store.DictionarySet" Multiplicity="1" />
+    <End Role="Users" Type="Warsztat.Store.UsersSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dictionary">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="DictionaryType_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DictionaryCarsEngine">
+    <End Role="Dictionary" Type="Warsztat.Store.DictionarySet" Multiplicity="1" />
+    <End Role="Cars" Type="Warsztat.Store.CarsSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dictionary">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cars">
+        <PropertyRef Name="DictionaryEngine_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DictionaryServices">
+    <End Role="Dictionary" Type="Warsztat.Store.DictionarySet" Multiplicity="1" />
+    <End Role="Services" Type="Warsztat.Store.ServicesSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dictionary">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Services">
+        <PropertyRef Name="Dictionary_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DictionaryCarsType">
+    <End Role="Dictionary" Type="Warsztat.Store.DictionarySet" Multiplicity="1" />
+    <End Role="Cars" Type="Warsztat.Store.CarsSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dictionary">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cars">
+        <PropertyRef Name="DictionaryType_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DictionaryCarsStatus">
+    <End Role="Dictionary" Type="Warsztat.Store.DictionarySet" Multiplicity="1" />
+    <End Role="Cars" Type="Warsztat.Store.CarsSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dictionary">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cars">
+        <PropertyRef Name="DictionaryStatus_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ClientsApplications">
+    <End Role="Clients" Type="Warsztat.Store.ClientsSet" Multiplicity="0..1" />
+    <End Role="Applications" Type="Warsztat.Store.ApplicationsSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Applications">
+        <PropertyRef Name="Clients_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ServicesWorkers">
+    <End Role="Services" Type="Warsztat.Store.ServicesSet" Multiplicity="*" />
+    <End Role="Workers" Type="Warsztat.Store.WorkersSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Workers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Services">
+        <PropertyRef Name="Workers_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="WorkersServicesWorkers">
+    <End Role="WorkersServices" Type="Warsztat.Store.WorkersServicesSet" Multiplicity="*" />
+    <End Role="Workers" Type="Warsztat.Store.WorkersSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Workers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WorkersServices">
+        <PropertyRef Name="Workers_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ServicesWorkersServices">
+    <End Role="Services" Type="Warsztat.Store.ServicesSet" Multiplicity="1" />
+    <End Role="WorkersServices" Type="Warsztat.Store.WorkersServicesSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Services">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WorkersServices">
+        <PropertyRef Name="Services_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DictionaryApplications">
+    <End Role="Dictionary" Type="Warsztat.Store.DictionarySet" Multiplicity="1" />
+    <End Role="Applications" Type="Warsztat.Store.ApplicationsSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dictionary">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Applications">
+        <PropertyRef Name="DictionaryStatus_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Warsztat" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="WarsztatContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UsersSet" EntityType="Warsztat.Users" />
+          <EntitySet Name="CarsSet" EntityType="Warsztat.Cars" />
+          <EntitySet Name="ServicesSet" EntityType="Warsztat.Services" />
+          <AssociationSet Name="CarsServices" Association="Warsztat.CarsServices">
+            <End Role="Cars" EntitySet="CarsSet" />
+            <End Role="Services" EntitySet="ServicesSet" />
+          </AssociationSet>
+          <EntitySet Name="WorkersSet" EntityType="Warsztat.Workers" />
+          <EntitySet Name="ClientsSet" EntityType="Warsztat.Clients" />
+          <AssociationSet Name="UsersClients" Association="Warsztat.UsersClients">
+            <End Role="Users" EntitySet="UsersSet" />
+            <End Role="Clients" EntitySet="ClientsSet" />
+          </AssociationSet>
+          <AssociationSet Name="UsersWorkers" Association="Warsztat.UsersWorkers">
+            <End Role="Users" EntitySet="UsersSet" />
+            <End Role="Workers" EntitySet="WorkersSet" />
+          </AssociationSet>
+          <AssociationSet Name="ClientsCars" Association="Warsztat.ClientsCars">
+            <End Role="Clients" EntitySet="ClientsSet" />
+            <End Role="Cars" EntitySet="CarsSet" />
+          </AssociationSet>
+          <EntitySet Name="DictionarySet" EntityType="Warsztat.Dictionary" />
+          <AssociationSet Name="DictionaryUsers" Association="Warsztat.DictionaryUsers">
+            <End Role="Dictionary" EntitySet="DictionarySet" />
+            <End Role="Users" EntitySet="UsersSet" />
+          </AssociationSet>
+          <AssociationSet Name="DictionaryCarsEngine" Association="Warsztat.DictionaryCarsEngine">
+            <End Role="Dictionary" EntitySet="DictionarySet" />
+            <End Role="Cars" EntitySet="CarsSet" />
+          </AssociationSet>
+          <AssociationSet Name="DictionaryServices" Association="Warsztat.DictionaryServices">
+            <End Role="Dictionary" EntitySet="DictionarySet" />
+            <End Role="Services" EntitySet="ServicesSet" />
+          </AssociationSet>
+          <AssociationSet Name="DictionaryCarsType" Association="Warsztat.DictionaryCarsType">
+            <End Role="Dictionary" EntitySet="DictionarySet" />
+            <End Role="Cars" EntitySet="CarsSet" />
+          </AssociationSet>
+          <AssociationSet Name="DictionaryCarsStatus" Association="Warsztat.DictionaryCarsStatus">
+            <End Role="Dictionary" EntitySet="DictionarySet" />
+            <End Role="Cars" EntitySet="CarsSet" />
+          </AssociationSet>
+          <EntitySet Name="ApplicationsSet" EntityType="Warsztat.Applications" />
+          <AssociationSet Name="ClientsApplications" Association="Warsztat.ClientsApplications">
+            <End Role="Clients" EntitySet="ClientsSet" />
+            <End Role="Applications" EntitySet="ApplicationsSet" />
+          </AssociationSet>
+          <AssociationSet Name="ServicesWorkers" Association="Warsztat.ServicesWorkers">
+            <End Role="Services" EntitySet="ServicesSet" />
+            <End Role="Workers" EntitySet="WorkersSet" />
+          </AssociationSet>
+          <EntitySet Name="WorkersServicesSet" EntityType="Warsztat.WorkersServices" />
+          <AssociationSet Name="WorkersServicesWorkers" Association="Warsztat.WorkersServicesWorkers">
+            <End Role="WorkersServices" EntitySet="WorkersServicesSet" />
+            <End Role="Workers" EntitySet="WorkersSet" />
+          </AssociationSet>
+          <AssociationSet Name="ServicesWorkersServices" Association="Warsztat.ServicesWorkersServices">
+            <End Role="Services" EntitySet="ServicesSet" />
+            <End Role="WorkersServices" EntitySet="WorkersServicesSet" />
+          </AssociationSet>
+          <AssociationSet Name="DictionaryApplications" Association="Warsztat.DictionaryApplications">
+            <End Role="Dictionary" EntitySet="DictionarySet" />
+            <End Role="Applications" EntitySet="ApplicationsSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Clients" Relationship="Warsztat.UsersClients" FromRole="Users" ToRole="Clients" />
+          <NavigationProperty Name="Workers" Relationship="Warsztat.UsersWorkers" FromRole="Users" ToRole="Workers" />
+          <Property Name="Login" Type="String" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <NavigationProperty Name="DictionaryType" Relationship="Warsztat.DictionaryUsers" FromRole="Users" ToRole="Dictionary" />
+        </EntityType>
+        <EntityType Name="Cars">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Services" Relationship="Warsztat.CarsServices" FromRole="Cars" ToRole="Services" />
+          <NavigationProperty Name="Clients" Relationship="Warsztat.ClientsCars" FromRole="Cars" ToRole="Clients" />
+          <Property Name="Brand" Type="String" Nullable="false" />
+          <Property Name="Model" Type="String" Nullable="false" />
+          <Property Name="Registration" Type="String" Nullable="false" />
+          <Property Name="ProductionYear" Type="DateTime" Nullable="true" />
+          <Property Name="Capacity" Type="Double" Nullable="true" />
+          <NavigationProperty Name="DictionaryEngine" Relationship="Warsztat.DictionaryCarsEngine" FromRole="Cars" ToRole="Dictionary" />
+          <NavigationProperty Name="DictionaryType" Relationship="Warsztat.DictionaryCarsType" FromRole="Cars" ToRole="Dictionary" />
+          <NavigationProperty Name="DictionaryStatus" Relationship="Warsztat.DictionaryCarsStatus" FromRole="Cars" ToRole="Dictionary" />
+          <Property Name="Active" Type="Boolean" Nullable="false" DefaultValue="true" />
+        </EntityType>
+        <EntityType Name="Services">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Cars" Relationship="Warsztat.CarsServices" FromRole="Services" ToRole="Cars" />
+          <Property Name="Count" Type="Int32" Nullable="true" />
+          <Property Name="Hours" Type="Int32" Nullable="true" />
+          <Property Name="DateAdd" Type="DateTime" Nullable="false" />
+          <Property Name="DateFinish" Type="DateTime" Nullable="true" />
+          <Property Name="CostSum" Type="Decimal" Nullable="true" />
+          <NavigationProperty Name="Dictionary" Relationship="Warsztat.DictionaryServices" FromRole="Services" ToRole="Dictionary" />
+          <NavigationProperty Name="Workers" Relationship="Warsztat.ServicesWorkers" FromRole="Services" ToRole="Workers" />
+          <NavigationProperty Name="WorkersServices" Relationship="Warsztat.ServicesWorkersServices" FromRole="Services" ToRole="WorkersServices" />
+          <Property Name="Description" Type="String" Nullable="true" />
+        </EntityType>
+        <Association Name="CarsServices">
+          <End Type="Warsztat.Cars" Role="Cars" Multiplicity="1" />
+          <End Type="Warsztat.Services" Role="Services" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Workers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Users" Relationship="Warsztat.UsersWorkers" FromRole="Workers" ToRole="Users" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Surname" Type="String" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" />
+          <Property Name="City" Type="String" Nullable="true" />
+          <Property Name="Post" Type="String" Nullable="true" />
+          <Property Name="Address" Type="String" Nullable="true" />
+          <NavigationProperty Name="Services" Relationship="Warsztat.ServicesWorkers" FromRole="Workers" ToRole="Services" />
+          <NavigationProperty Name="WorkersServices" Relationship="Warsztat.WorkersServicesWorkers" FromRole="Workers" ToRole="WorkersServices" />
+          <Property Name="Active" Type="Boolean" Nullable="false" DefaultValue="true" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Users" Relationship="Warsztat.UsersClients" FromRole="Clients" ToRole="Users" />
+          <NavigationProperty Name="Cars" Relationship="Warsztat.ClientsCars" FromRole="Clients" ToRole="Cars" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Surname" Type="String" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" />
+          <Property Name="City" Type="String" Nullable="true" />
+          <Property Name="Post" Type="String" Nullable="true" />
+          <Property Name="Address" Type="String" Nullable="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" DefaultValue="true" />
+          <NavigationProperty Name="Applications" Relationship="Warsztat.ClientsApplications" FromRole="Clients" ToRole="Applications" />
+        </EntityType>
+        <Association Name="UsersClients">
+          <End Type="Warsztat.Users" Role="Users" Multiplicity="1" />
+          <End Type="Warsztat.Clients" Role="Clients" Multiplicity="0..1" />
+        </Association>
+        <Association Name="UsersWorkers">
+          <End Type="Warsztat.Users" Role="Users" Multiplicity="1" />
+          <End Type="Warsztat.Workers" Role="Workers" Multiplicity="0..1" />
+        </Association>
+        <Association Name="ClientsCars">
+          <End Type="Warsztat.Clients" Role="Clients" Multiplicity="1" />
+          <End Type="Warsztat.Cars" Role="Cars" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Dictionary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Users" Relationship="Warsztat.DictionaryUsers" FromRole="Dictionary" ToRole="Users" />
+          <NavigationProperty Name="CarsEngine" Relationship="Warsztat.DictionaryCarsEngine" FromRole="Dictionary" ToRole="Cars" />
+          <NavigationProperty Name="Services" Relationship="Warsztat.DictionaryServices" FromRole="Dictionary" ToRole="Services" />
+          <NavigationProperty Name="CarsType" Relationship="Warsztat.DictionaryCarsType" FromRole="Dictionary" ToRole="Cars" />
+          <NavigationProperty Name="CarsStatus" Relationship="Warsztat.DictionaryCarsStatus" FromRole="Dictionary" ToRole="Cars" />
+          <Property Name="Key" Type="String" Nullable="false" />
+          <Property Name="Value" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="true" />
+          <NavigationProperty Name="Applications" Relationship="Warsztat.DictionaryApplications" FromRole="Dictionary" ToRole="Applications" />
+        </EntityType>
+        <Association Name="DictionaryUsers">
+          <End Type="Warsztat.Dictionary" Role="Dictionary" Multiplicity="1" />
+          <End Type="Warsztat.Users" Role="Users" Multiplicity="*" />
+        </Association>
+        <Association Name="DictionaryCarsEngine">
+          <End Type="Warsztat.Dictionary" Role="Dictionary" Multiplicity="1" />
+          <End Type="Warsztat.Cars" Role="Cars" Multiplicity="*" />
+        </Association>
+        <Association Name="DictionaryServices">
+          <End Type="Warsztat.Dictionary" Role="Dictionary" Multiplicity="1" />
+          <End Type="Warsztat.Services" Role="Services" Multiplicity="*" />
+        </Association>
+        <Association Name="DictionaryCarsType">
+          <End Type="Warsztat.Dictionary" Role="Dictionary" Multiplicity="1" />
+          <End Type="Warsztat.Cars" Role="Cars" Multiplicity="*" />
+        </Association>
+        <Association Name="DictionaryCarsStatus">
+          <End Type="Warsztat.Dictionary" Role="Dictionary" Multiplicity="1" />
+          <End Type="Warsztat.Cars" Role="Cars" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Applications">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Content" Type="String" Nullable="false" />
+          <Property Name="Contact" Type="String" Nullable="false" />
+          <NavigationProperty Name="Clients" Relationship="Warsztat.ClientsApplications" FromRole="Applications" ToRole="Clients" />
+          <NavigationProperty Name="DictionaryStatus" Relationship="Warsztat.DictionaryApplications" FromRole="Applications" ToRole="Dictionary" />
+        </EntityType>
+        <Association Name="ClientsApplications">
+          <End Type="Warsztat.Clients" Role="Clients" Multiplicity="0..1" />
+          <End Type="Warsztat.Applications" Role="Applications" Multiplicity="*" />
+        </Association>
+        <Association Name="ServicesWorkers">
+          <End Type="Warsztat.Services" Role="Services" Multiplicity="1" />
+          <End Type="Warsztat.Workers" Role="Workers" Multiplicity="1" />
+        </Association>
+        <EntityType Name="WorkersServices">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Workers" Relationship="Warsztat.WorkersServicesWorkers" FromRole="WorkersServices" ToRole="Workers" />
+          <NavigationProperty Name="Services" Relationship="Warsztat.ServicesWorkersServices" FromRole="WorkersServices" ToRole="Services" />
+        </EntityType>
+        <Association Name="WorkersServicesWorkers">
+          <End Type="Warsztat.WorkersServices" Role="WorkersServices" Multiplicity="*" />
+          <End Type="Warsztat.Workers" Role="Workers" Multiplicity="1" />
+        </Association>
+        <Association Name="ServicesWorkersServices">
+          <End Type="Warsztat.Services" Role="Services" Multiplicity="1" />
+          <End Type="Warsztat.WorkersServices" Role="WorkersServices" Multiplicity="*" />
+        </Association>
+        <Association Name="DictionaryApplications">
+          <End Type="Warsztat.Dictionary" Role="Dictionary" Multiplicity="1" />
+          <End Type="Warsztat.Applications" Role="Applications" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WarsztatStoreContainer" CdmEntityContainer="WarsztatContainer">
+    <EntitySetMapping Name="UsersSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Warsztat.Users)">
+        <MappingFragment StoreEntitySet="UsersSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Warsztat.Cars)">
+        <MappingFragment StoreEntitySet="CarsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Brand" ColumnName="Brand" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="Registration" ColumnName="Registration" />
+          <ScalarProperty Name="ProductionYear" ColumnName="ProductionYear" />
+          <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServicesSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Warsztat.Services)">
+        <MappingFragment StoreEntitySet="ServicesSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+          <ScalarProperty Name="Hours" ColumnName="Hours" />
+          <ScalarProperty Name="DateAdd" ColumnName="DateAdd" />
+          <ScalarProperty Name="DateFinish" ColumnName="DateFinish" />
+          <ScalarProperty Name="CostSum" ColumnName="CostSum" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WorkersSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Warsztat.Workers)">
+        <MappingFragment StoreEntitySet="WorkersSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Post" ColumnName="Post" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ClientsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Warsztat.Clients)">
+        <MappingFragment StoreEntitySet="ClientsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Post" ColumnName="Post" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DictionarySet">
+      <EntityTypeMapping TypeName="IsTypeOf(Warsztat.Dictionary)">
+        <MappingFragment StoreEntitySet="DictionarySet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ApplicationsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Warsztat.Applications)">
+        <MappingFragment StoreEntitySet="ApplicationsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WorkersServicesSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Warsztat.WorkersServices)">
+        <MappingFragment StoreEntitySet="WorkersServicesSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="CarsServices" TypeName="Warsztat.CarsServices" StoreEntitySet="ServicesSet">
+      <EndProperty Name="Cars">
+        <ScalarProperty Name="Id" ColumnName="Cars_Id" />
+      </EndProperty>
+      <EndProperty Name="Services">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UsersClients" TypeName="Warsztat.UsersClients" StoreEntitySet="ClientsSet">
+      <EndProperty Name="Users">
+        <ScalarProperty Name="Id" ColumnName="Users_Id" />
+      </EndProperty>
+      <EndProperty Name="Clients">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UsersWorkers" TypeName="Warsztat.UsersWorkers" StoreEntitySet="WorkersSet">
+      <EndProperty Name="Users">
+        <ScalarProperty Name="Id" ColumnName="Users_Id" />
+      </EndProperty>
+      <EndProperty Name="Workers">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ClientsCars" TypeName="Warsztat.ClientsCars" StoreEntitySet="CarsSet">
+      <EndProperty Name="Clients">
+        <ScalarProperty Name="Id" ColumnName="Clients_Id" />
+      </EndProperty>
+      <EndProperty Name="Cars">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DictionaryUsers" TypeName="Warsztat.DictionaryUsers" StoreEntitySet="UsersSet">
+      <EndProperty Name="Dictionary">
+        <ScalarProperty Name="Id" ColumnName="DictionaryType_Id" />
+      </EndProperty>
+      <EndProperty Name="Users">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DictionaryCarsEngine" TypeName="Warsztat.DictionaryCarsEngine" StoreEntitySet="CarsSet">
+      <EndProperty Name="Dictionary">
+        <ScalarProperty Name="Id" ColumnName="DictionaryEngine_Id" />
+      </EndProperty>
+      <EndProperty Name="Cars">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DictionaryServices" TypeName="Warsztat.DictionaryServices" StoreEntitySet="ServicesSet">
+      <EndProperty Name="Dictionary">
+        <ScalarProperty Name="Id" ColumnName="Dictionary_Id" />
+      </EndProperty>
+      <EndProperty Name="Services">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DictionaryCarsType" TypeName="Warsztat.DictionaryCarsType" StoreEntitySet="CarsSet">
+      <EndProperty Name="Dictionary">
+        <ScalarProperty Name="Id" ColumnName="DictionaryType_Id" />
+      </EndProperty>
+      <EndProperty Name="Cars">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DictionaryCarsStatus" TypeName="Warsztat.DictionaryCarsStatus" StoreEntitySet="CarsSet">
+      <EndProperty Name="Dictionary">
+        <ScalarProperty Name="Id" ColumnName="DictionaryStatus_Id" />
+      </EndProperty>
+      <EndProperty Name="Cars">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ClientsApplications" TypeName="Warsztat.ClientsApplications" StoreEntitySet="ApplicationsSet">
+      <EndProperty Name="Clients">
+        <ScalarProperty Name="Id" ColumnName="Clients_Id" />
+      </EndProperty>
+      <EndProperty Name="Applications">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Clients_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ServicesWorkers" TypeName="Warsztat.ServicesWorkers" StoreEntitySet="ServicesSet">
+      <EndProperty Name="Workers">
+        <ScalarProperty Name="Id" ColumnName="Workers_Id" />
+      </EndProperty>
+      <EndProperty Name="Services">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="WorkersServicesWorkers" TypeName="Warsztat.WorkersServicesWorkers" StoreEntitySet="WorkersServicesSet">
+      <EndProperty Name="Workers">
+        <ScalarProperty Name="Id" ColumnName="Workers_Id" />
+      </EndProperty>
+      <EndProperty Name="WorkersServices">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ServicesWorkersServices" TypeName="Warsztat.ServicesWorkersServices" StoreEntitySet="WorkersServicesSet">
+      <EndProperty Name="Services">
+        <ScalarProperty Name="Id" ColumnName="Services_Id" />
+      </EndProperty>
+      <EndProperty Name="WorkersServices">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DictionaryApplications" TypeName="Warsztat.DictionaryApplications" StoreEntitySet="ApplicationsSet">
+      <EndProperty Name="Dictionary">
+        <ScalarProperty Name="Id" ColumnName="DictionaryStatus_Id" />
+      </EndProperty>
+      <EndProperty Name="Applications">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

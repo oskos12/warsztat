@@ -1,0 +1,22 @@
+.nav-link:hover{
+    color: #EB9402;
+}
+
+.login{
+    color: white;
+    margin-right: 10px;
+}
+
+.logout{
+    height: 100%;
+}
+
+.userButton{
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.userButton:hover{
+    background-color: #EB9402;
+    border-color: #EB9402;
+}

@@ -1,0 +1,120 @@
+<div *ngIf="history == false" class="container my-5">
+    <h1 class="mb-3">
+        Serwisy
+    </h1>
+    <div *ngIf="role === 'Admin' || role ==='Personel'">
+        <button (click)="addNew()" class="btn btn-primary" style="margin-right: 10px;">Dodaj</button>
+        <button (click)="viewHistory()" class="btn btn-primary" style="margin-right: 10px;">Historia</button>
+        <button (click)="toPdf()" class="btn btn-primary">Generuj raport</button>
+    </div>
+    <div *ngIf="role === 'User'">
+        <button (click)="viewHistory()" class="btn btn-primary" style="margin-right: 10px;">Historia</button>
+        <button (click)="toPdf()" class="btn btn-primary">Generuj raport</button>
+    </div>
+    <table id="table" class="table" *ngIf="services && services.length > 0">
+        <thead>
+            <tr>
+                <th *ngIf="role === 'Admin' || role ==='Personel'">Id</th>
+                <th>Pojazd</th>
+                <th>Data rozpoczęcia</th>
+                <th>Ilość</th>
+                <th>Godziny</th>
+                <th>Łączna cena</th>
+                <th>Rodzaj usługi</th>
+                <th>Opis</th>
+                <th *ngIf="role === 'Admin' || role ==='Personel'">Opiekun</th>
+                <th *ngIf="role === 'Admin' || role ==='Personel'">Lista pracowników</th>
+                <th *ngIf="awControl === true"></th>
+                <th *ngIf="(role === 'Admin' || role ==='Personel') && awControl === false"></th>
+                <th *ngIf="(role === 'Admin' || role ==='Personel') && awControl === false"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let service of services">
+                <td *ngIf="(role === 'Admin' || role ==='Personel') && (service.service.dateFinish === null)">{{service.service.id}}</td>
+                <td *ngIf="service.service.dateFinish === null">{{service.service.registration}}</td>
+                <td *ngIf="service.service.dateFinish === null">{{service.service.dateAdd.substring(0,10)}}</td>
+                <td *ngIf="service.service.dateFinish === null">{{service.service.count}}</td>
+                <td *ngIf="service.service.dateFinish === null">{{service.service.hours}}</td>
+                <td *ngIf="!service.service.costSum && (service.service.dateFinish === null)"></td>
+                <td *ngIf="(service.service.costSum) && (service.service.dateFinish === null)">{{service.service.costSum}} zł</td>
+                <td *ngIf="service.service.dateFinish === null" style="text-align: left;">{{service.service.dictValue + ' - ' + service.service.dictDescription}}</td>
+                <td *ngIf="service.service.dateFinish === null">{{service.service.description}}</td>
+                <td *ngIf="(role === 'Admin' || role ==='Personel') && (service.service.dateFinish === null)">{{service.service.name + ' ' + service.service.surname}}</td>
+                <td *ngIf="(role === 'Admin' || role ==='Personel') && (service.service.dateFinish === null)">
+                    <select style="width: 12rem;" size="3" *ngIf="service.workers.length > 0">
+                        <option *ngFor="let worker of service.workers" [ngValue]="worker.id">
+                            {{ worker.name + ' ' + worker.surname }}
+                        </option>
+                    </select>
+                </td>
+                <td *ngIf="(awControl === true) && (service.service.dateFinish === null)">
+                    <form [formGroup]="addWorkersForm">
+                        <select style="width: 12rem;" formControlName="newWorkers" multiple size="3">
+                            <option *ngFor="let worker of workers" [ngValue]="worker.id">
+                                {{ worker.name + ' ' + worker.surname }}
+                            </option>
+                        </select>
+                        <button (click)="addWorkers(service.service.id)" class="btn btn-primary tbutton" style="padding:auto; font-size: 12px;">Zapisz</button>
+                    </form>
+                </td>
+                <td *ngIf="(role === 'Admin' || role ==='Personel') && awControl === false && (service.service.dateFinish === null)"><button *ngIf="(service.service.name + ' ' + service.service.surname) === fullName || role === 'Admin'" (click)="getWorkers()" class="btn btn-primary tbutton">Przypisz</button></td>
+                <td *ngIf="(role === 'Admin' || role ==='Personel') && awControl === false && (service.service.dateFinish === null)"><button (click)="finish(service.service)" class="btn btn-primary tbutton">Zakończ</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <p *ngIf="!services || services.length <= 0">Brak serwisów!</p>
+</div>
+
+<div *ngIf="history == true" class="container my-5">
+    <h1 class="mb-3">
+        Historia serwisów
+    </h1>
+    <div>
+        <button (click)="back()" class="btn btn-primary" style="margin-right: 10px;">Wróć</button>
+        <button (click)="toPdf()" class="btn btn-primary">Generuj raport</button>
+    </div>
+    <table id="table" class="table" *ngIf="services && services.length > 0">
+        <thead>
+            <tr>
+                <th *ngIf="role === 'Admin' || role ==='Personel'">Id</th>
+                <th>Pojazd</th>
+                <th>Data rozpoczęcia</th>
+                <th>Data zakończenia</th>
+                <th>Ilość</th>
+                <th>Godziny</th>
+                <th>Łączna cena</th>
+                <th>Rodzaj usługi</th>
+                <th>Opis</th>
+                <th *ngIf="role === 'Admin' || role ==='Personel'">Opiekun</th>
+                <th *ngIf="role === 'Admin' || role ==='Personel'">Lista pracowników</th>
+                <th *ngIf="awControl === true"></th>
+                <th *ngIf="(role === 'Admin' || role ==='Personel') && awControl === false"></th>
+                <th *ngIf="(role === 'Admin' || role ==='Personel') && awControl === false"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let service of services">
+                <td *ngIf="(role === 'Admin' || role ==='Personel') && (service.service.dateFinish != null)">{{service.service.id}}</td>
+                <td *ngIf="service.service.dateFinish != null">{{service.service.registration}}</td>
+                <td *ngIf="service.service.dateFinish != null">{{service.service.dateAdd.substring(0,10)}}</td>
+                <td *ngIf="service.service.dateFinish != null"><span *ngIf="service.service.dateFinish != null">{{service.service.dateFinish.substring(0,16).replace('T',' ')}}</span></td>
+                <td *ngIf="service.service.dateFinish != null">{{service.service.count}}</td>
+                <td *ngIf="service.service.dateFinish != null">{{service.service.hours}}</td>
+                <td *ngIf="!service.service.costSum && (service.service.dateFinish != null)"></td>
+                <td *ngIf="service.service.costSum && (service.service.dateFinish != null)">{{service.service.costSum}} zł</td>
+                <td *ngIf="service.service.dateFinish != null" style="text-align: left;">{{service.service.dictValue + ' - ' + service.service.dictDescription}}</td>
+                <td *ngIf="service.service.dateFinish != null">{{service.service.description}}</td>
+                <td *ngIf="(role === 'Admin' || role ==='Personel') && (service.service.dateFinish != null)">{{service.service.name + ' ' + service.service.surname}}</td>
+                <td *ngIf="(role === 'Admin' || role ==='Personel') && (service.service.dateFinish != null)">
+                    <select width="12rem" size="3" *ngIf="service.workers.length > 0">
+                        <option *ngFor="let worker of service.workers" [ngValue]="worker.id">
+                            {{ worker.name + ' ' + worker.surname }}
+                        </option>
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p *ngIf="!services || services.length <= 0">Brak serwisów!</p>
+</div>

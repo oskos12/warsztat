@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="68b991465e254b7e9b10dbc8532e7d7b" Name="Diagram1" ZoomLevel="81" >
+        <EntityTypeShape EntityType="Warsztat.Users" Width="1.5" PointX="2.75" PointY="0.5" />
+        <EntityTypeShape EntityType="Warsztat.Cars" Width="1.5" PointX="11.25" PointY="0.5" />
+        <EntityTypeShape EntityType="Warsztat.Services" Width="1.5" PointX="7.5" PointY="4.625" />
+        <AssociationConnector Association="Warsztat.CarsServices" ></AssociationConnector>
+        <EntityTypeShape EntityType="Warsztat.Workers" Width="1.5" PointX="2.5" PointY="4.125" />
+        <EntityTypeShape EntityType="Warsztat.Clients" Width="1.5" PointX="7" PointY="0.5" />
+        <AssociationConnector Association="Warsztat.UsersClients" />
+        <AssociationConnector Association="Warsztat.UsersWorkers" />
+        <AssociationConnector Association="Warsztat.ClientsCars" />
+        <EntityTypeShape EntityType="Warsztat.Dictionary" Width="1.5" PointX="12.25" PointY="4.75" />
+        <AssociationConnector Association="Warsztat.DictionaryUsers" />
+        <AssociationConnector Association="Warsztat.DictionaryCarsEngine" />
+        <AssociationConnector Association="Warsztat.DictionaryServices" />
+        <AssociationConnector Association="Warsztat.DictionaryCarsType" />
+        <AssociationConnector Association="Warsztat.DictionaryCarsStatus" />
+        <EntityTypeShape EntityType="Warsztat.Applications" Width="1.5" PointX="13.75" PointY="0.5" />
+        <AssociationConnector Association="Warsztat.ClientsApplications" />
+        <AssociationConnector Association="Warsztat.ServicesWorkers" />
+        <EntityTypeShape EntityType="Warsztat.WorkersServices" Width="1.5" PointX="5.125" PointY="5" />
+        <AssociationConnector Association="Warsztat.WorkersServicesWorkers" />
+        <AssociationConnector Association="Warsztat.ServicesWorkersServices" />
+        <AssociationConnector Association="Warsztat.DictionaryApplications" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
