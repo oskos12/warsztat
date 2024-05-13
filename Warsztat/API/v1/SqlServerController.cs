@@ -27,7 +27,7 @@ namespace Warsztat.API.v1
         [HttpGet]
         [AutoWrapIgnore]
         [Route("users")]
-        [ProducesResponseType(typeof(IEnumerable<Users>), Status200OK)]
+        [ProducesResponseType(typeof(Response), Status200OK)]
         [ProducesResponseType(typeof(ApiProblemDetailsResponse), Status404NotFound)]
         public async Task<ApiResponse> GetUsersWithEF()
         {
@@ -42,7 +42,7 @@ namespace Warsztat.API.v1
         [HttpGet]
         [AutoWrapIgnore]
         [Route("clients")]
-        [ProducesResponseType(typeof(IEnumerable<Clients>), Status200OK)]
+        [ProducesResponseType(typeof(Response), Status200OK)]
         [ProducesResponseType(typeof(ApiProblemDetailsResponse), Status404NotFound)]
         public IActionResult GetClients()
         {
@@ -57,7 +57,7 @@ namespace Warsztat.API.v1
         [HttpGet]
         [AutoWrapIgnore]
         [Route("clientsEF")]
-        [ProducesResponseType(typeof(IEnumerable<Clients>), Status200OK)]
+        [ProducesResponseType(typeof(Response), Status200OK)]
         [ProducesResponseType(typeof(ApiProblemDetailsResponse), Status404NotFound)]
         public async Task<IActionResult> GetClientsEF()
         {
@@ -72,7 +72,7 @@ namespace Warsztat.API.v1
         [HttpGet]
         [AutoWrapIgnore]
         [Route("clientsDapper")]
-        [ProducesResponseType(typeof(IEnumerable<Clients>), Status200OK)]
+        [ProducesResponseType(typeof(Response), Status200OK)]
         [ProducesResponseType(typeof(ApiProblemDetailsResponse), Status404NotFound)]
         public IActionResult GetClientsDapper()
         {
@@ -88,123 +88,123 @@ namespace Warsztat.API.v1
         [AutoWrapIgnore]
         [Route("client")]
         [NonAction]
-        [ProducesResponseType(typeof(Response), Status200OK)]
-        [ProducesResponseType(typeof(ApiProblemDetailsResponse), Status404NotFound)]
-        public async Task<ApiResponse> AddClient(AddClientRequest request)
+        [ProducesResponseType(typeof(int), Status200OK)]
+        [ProducesResponseType(typeof(ApiProblemDetailsResponse), Status400BadRequest)]
+        public async Task<IActionResult> AddClient(AddClientRequest request)
         {
             var client = await _manager.AddNewClient(request.Name, request.Surname, request.PhoneNumber, request.Address, request.City, request.Post, request.Email);
             if (client < 0)
-                return new ApiResponse(new ApiProblemDetailsException("Client wasn't added.", Status404NotFound), 404);
+                return BadRequest(new ApiProblemDetailsException("Client wasn't added.", Status400BadRequest));
 
-            return new ApiResponse(true);
+            return Ok(client);
         }
 
         [HttpPost]
         [AutoWrapIgnore]
         [Route("clientSimple")]
-        [ProducesResponseType(typeof(Response), Status200OK)]
-        [ProducesResponseType(typeof(ApiProblemDetailsResponse), Status404NotFound)]
-        public async Task<ApiResponse> AddClientSimple(int count)
+        [ProducesResponseType(typeof(int), Status200OK)]
+        [ProducesResponseType(typeof(ApiProblemDetailsResponse), Status400BadRequest)]
+        public async Task<IActionResult> AddClientSimple(int count)
         {
             var client = await _manager.AddCountOfClientsSimple(count);
             if (client < 0)
-                return new ApiResponse(new ApiProblemDetailsException("Error adding clients.", Status404NotFound), 404);
+                return BadRequest(new ApiProblemDetailsException("Client wasn't added.", Status400BadRequest));
 
-            return new ApiResponse(client);
+            return Ok(client);
         }
 
         [HttpPost]
         [AutoWrapIgnore]
         [Route("clientConnection")]
-        [ProducesResponseType(typeof(Response), Status200OK)]
-        [ProducesResponseType(typeof(ApiProblemDetailsResponse), Status404NotFound)]
-        public async Task<ApiResponse> AddClientConnection(int count)
+        [ProducesResponseType(typeof(int), Status200OK)]
+        [ProducesResponseType(typeof(ApiProblemDetailsResponse), Status400BadRequest)]
+        public async Task<IActionResult> AddClientConnection(int count)
         {
             var client = await _manager.AddCountOfClientsConnection(count);
             if (client < 0)
-                return new ApiResponse(new ApiProblemDetailsException("Error adding clients.", Status404NotFound), 404);
+                return BadRequest(new ApiProblemDetailsException("Client wasn't added.", Status400BadRequest));
 
-            return new ApiResponse(client);
+            return Ok(client);
         }
 
         [HttpPost]
         [AutoWrapIgnore]
         [Route("clientStringBuilder")]
-        [ProducesResponseType(typeof(Response), Status200OK)]
-        [ProducesResponseType(typeof(ApiProblemDetailsResponse), Status404NotFound)]
-        public async Task<ApiResponse> AddClientStringBuilder(int count)
+        [ProducesResponseType(typeof(int), Status200OK)]
+        [ProducesResponseType(typeof(ApiProblemDetailsResponse), Status400BadRequest)]
+        public async Task<IActionResult> AddClientStringBuilder(int count)
         {
             var client = await _manager.AddCountOfClientsStringBuilder(count);
             if (client < 0)
-                return new ApiResponse(new ApiProblemDetailsException("Error adding clients.", Status404NotFound), 404);
+                return BadRequest(new ApiProblemDetailsException("Client wasn't added.", Status400BadRequest));
 
-            return new ApiResponse(client);
+            return Ok(client);
         }
 
         [HttpPost]
         [AutoWrapIgnore]
         [Route("clientEF")]
-        [ProducesResponseType(typeof(Response), Status200OK)]
-        [ProducesResponseType(typeof(ApiProblemDetailsResponse), Status404NotFound)]
-        public async Task<ApiResponse> AddClientEF(int count)
+        [ProducesResponseType(typeof(int), Status200OK)]
+        [ProducesResponseType(typeof(ApiProblemDetailsResponse), Status400BadRequest)]
+        public async Task<IActionResult> AddClientEF(int count)
         {
             var client = await _manager.AddCountOfClientsEF(count);
             if (client < 0)
-                return new ApiResponse(new ApiProblemDetailsException("Error adding clients.", Status404NotFound), 404);
+                return BadRequest(new ApiProblemDetailsException("Client wasn't added.", Status400BadRequest));
 
-            return new ApiResponse(client);
+            return Ok(client);
         }
         [HttpPost]
         [AutoWrapIgnore]
         [Route("clientEFRange")]
-        [ProducesResponseType(typeof(Response), Status200OK)]
-        [ProducesResponseType(typeof(ApiProblemDetailsResponse), Status404NotFound)]
-        public async Task<ApiResponse> AddClientEFRange(int count)
+        [ProducesResponseType(typeof(int), Status200OK)]
+        [ProducesResponseType(typeof(ApiProblemDetailsResponse), Status400BadRequest)]
+        public async Task<IActionResult> AddClientEFRange(int count)
         {
             var client = await _manager.AddCountOfClientsEFRange(count);
             if (client < 0)
-                return new ApiResponse(new ApiProblemDetailsException("Error adding clients.", Status404NotFound), 404);
+                return BadRequest(new ApiProblemDetailsException("Client wasn't added.", Status400BadRequest));
 
-            return new ApiResponse(client);
+            return Ok(client);
         }
         [HttpPost]
         [AutoWrapIgnore]
         [Route("clientDapperSimple")]
-        [ProducesResponseType(typeof(Response), Status200OK)]
-        [ProducesResponseType(typeof(ApiProblemDetailsResponse), Status404NotFound)]
-        public async Task<ApiResponse> AddClientDapperSimple(int count)
+        [ProducesResponseType(typeof(int), Status200OK)]
+        [ProducesResponseType(typeof(ApiProblemDetailsResponse), Status400BadRequest)]
+        public async Task<IActionResult> AddClientDapperSimple(int count)
         {
             var client = await _manager.AddCountOfClientsDapperSimple(count);
             if (client < 0)
-                return new ApiResponse(new ApiProblemDetailsException("Error adding clients.", Status404NotFound), 404);
+                return BadRequest(new ApiProblemDetailsException("Client wasn't added.", Status400BadRequest));
 
-            return new ApiResponse(client);
+            return Ok(client);
         }
         [HttpPost]
         [AutoWrapIgnore]
         [Route("clientDapperList")]
-        [ProducesResponseType(typeof(Response), Status200OK)]
-        [ProducesResponseType(typeof(ApiProblemDetailsResponse), Status404NotFound)]
-        public async Task<ApiResponse> AddClientDapperList(int count)
+        [ProducesResponseType(typeof(int), Status200OK)]
+        [ProducesResponseType(typeof(ApiProblemDetailsResponse), Status400BadRequest)]
+        public async Task<IActionResult> AddClientDapperList(int count)
         {
             var client = await _manager.AddCountOfClientsDapperList(count);
             if (client < 0)
-                return new ApiResponse(new ApiProblemDetailsException("Error adding clients.", Status404NotFound), 404);
+                return BadRequest(new ApiProblemDetailsException("Client wasn't added.", Status400BadRequest));
 
-            return new ApiResponse(client);
+            return Ok(client);
         }
         [HttpPost]
         [AutoWrapIgnore]
         [Route("clientDapperBulk")]
-        [ProducesResponseType(typeof(Response), Status200OK)]
-        [ProducesResponseType(typeof(ApiProblemDetailsResponse), Status404NotFound)]
-        public async Task<ApiResponse> AddClientDapperBulk(int count)
+        [ProducesResponseType(typeof(int), Status200OK)]
+        [ProducesResponseType(typeof(ApiProblemDetailsResponse), Status400BadRequest)]
+        public async Task<IActionResult> AddClientDapperBulk(int count)
         {
             var client = await _manager.AddCountOfClientsDapperBulk(count);
             if (client < 0)
-                return new ApiResponse(new ApiProblemDetailsException("Error adding clients.", Status404NotFound), 404);
+                return BadRequest(new ApiProblemDetailsException("Client wasn't added.", Status400BadRequest));
 
-            return new ApiResponse(client);
+            return Ok(client);
         }
     }
 }

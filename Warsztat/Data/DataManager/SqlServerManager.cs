@@ -155,6 +155,8 @@ namespace Warsztat.Data.DataManager
             {
                 using (var connection = new SqlConnection(_connectionString))
                 {
+                    connection.Open();
+
                     foreach (Clients client in list)
                     {
                         var command = new SqlCommand(cmdText, connection);
@@ -167,7 +169,6 @@ namespace Warsztat.Data.DataManager
                         command.Parameters.AddWithValue("@active", client.Active);
                         command.Parameters.AddWithValue("@userId", client.Users_Id);
 
-                        connection.Open();
                         command.ExecuteNonQuery();
                     }
                 }
