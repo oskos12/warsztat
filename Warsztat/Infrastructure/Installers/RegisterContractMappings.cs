@@ -11,6 +11,7 @@ namespace Warsztat.Infrastructure.Installers
         public void RegisterAppService(IServiceCollection services, IConfiguration configuration)
         {
             //Register Interface Mappings for Repositories
+            services.AddTransient<ISqlServerManager, SqlServerManager>();
             services.AddTransient<IWorkshopManager, WorkshopManager>();
 
             services.AddScoped<IWorkshopDbContext>(service => service.GetService<WorkshopDbContext>());

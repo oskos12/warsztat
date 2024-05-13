@@ -16,7 +16,7 @@ using static Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace Warsztat.API.v1
 {
-    [Route("api/v1")]
+    [Route("api/v1/workshop")]
     [ApiController]
     public class WorkshopController : ControllerBase
     {
